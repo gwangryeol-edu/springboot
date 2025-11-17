@@ -1,6 +1,6 @@
 package org.example.firstapp.controller;
 
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
+import org.springframework.context.annotation.ScopeMetadataResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -123,5 +123,82 @@ public class HomeController {
         model.addAttribute("title", title);
         model.addAttribute("content", content);
         return "pong";
+    }
+
+    //    ---- Do myself Level 2: PathVariable로 동적 페이지 만들기 ----
+    @GetMapping("/square/{number}")
+    public String square(@PathVariable int number, Model model) {
+        int result = number * number;
+        model.addAttribute("number", number);
+        model.addAttribute("result", result);
+        return "square";
+    }
+
+    //    ---- Do myself Level 3: RequestParam 활용 연습 ----
+    @GetMapping("/calc")
+    public String calc(
+            @RequestParam(required = false) Integer number1,
+            @RequestParam(required = false) Integer number2,
+            Model model) {
+        if (number1 != null && number2 != null) {
+            model.addAttribute("result1", number1 + number2);
+            model.addAttribute("result2", number1 - number2);
+            model.addAttribute("result3", number1 * number2);
+            model.addAttribute("result4", number2 != 0 ? number1 / number2 : "0으로 나눌 수 없음");
+        }
+
+        model.addAttribute("number1", number1);
+        model.addAttribute("number2", number2);
+
+        return "calc";
+    }
+
+    //---Level 4: List, 반복문 연습---
+    @GetMapping("/avg")
+    public String avg(Model model) {
+        List<Integer> scores = Arrays.asList(53, 79, 89, 48, 90, 100);
+
+        int sum = 0;
+        for (int s : scores) {
+            sum += s;
+        }
+        int scoreAVG = sum / scores.size();
+
+        model.addAttribute("scores", scores);
+        model.addAttribute("sum", sum);
+        model.addAttribute("scoreAVG", scoreAVG);
+
+        return "avg";
+    }
+
+    // Level 6: 실전 미니 프로젝트: 계산기
+    @GetMapping("/inputcalculator")
+    public String inputcalculator(Model model) {
+        return "inputcalculator";
+    }
+
+    @GetMapping("/calculator")
+    public String calculator(
+            @RequestParam int num1,
+            @RequestParam String calcu,
+            @RequestParam int num2,
+            Model model
+    ) {
+        int result1 = num1 + num2;
+        int result2 = num1 - num2;
+        int result3 = num1 * num2;
+        int result4 = num1 / num2;
+
+        model.addAttribute("num1", num1);
+        model.addAttribute("num2", num2);
+        model.addAttribute("calcu", calcu);
+        model.addAttribute("result1", result1);
+        model.addAttribute("result2", result2);
+        model.addAttribute("result3", result3);
+        model.addAttribute("result4", result4);
+
+
+        return "calculator";
+
     }
 }

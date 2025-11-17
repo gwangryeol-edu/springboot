@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>calc</title>
+</head>
+<body>
+<h1>calc</h1>
+
+<form action="/calc" method="get">
+    <input type="text" name="number1" placeholder="첫 번째 숫자">
+    <input type="text" name="number2" placeholder="두 번째 숫자">
+
+    <button type="submit">계산하기</button>
+</form>
+
+<p th:text="${number1}"></p>
+<p th:text="${number2}"></p>
+<h2 th:text="${result1}"></h2>
+<h2 th:text="${result2}"></h2>
+<h2 th:text="${result3}"></h2>
+<h2 th:text="${result4}"></h2>
+</body>
+</html>
