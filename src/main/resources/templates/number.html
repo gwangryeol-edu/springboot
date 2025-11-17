@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>even_odd</title>
+</head>
+<body>
+    <h1>even_odd</h1>
+    <p th:text="${num}"></p>
+<p th:if = "${num%2==0}">짝수</p>
+<p th:if = "${num%2==1}">홀수</p>
+
+
+</body>
+</html>
